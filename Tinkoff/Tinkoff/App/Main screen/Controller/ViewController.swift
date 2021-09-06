@@ -45,11 +45,9 @@ class ViewController: UIViewController {
             }
         }
     }
-    
-    private let sections: [String] = ["mostactive", "gainers", "losers","iexvolume",
-                                      "iexpercent"]
-    private let sectionsNames: [String] = ["Most Active", "Gainers", "Losers","Iex volume",
-                                           "Iex percent"]
+    // Категории из которых выбираются акции для загрузки
+    private let sections: [String] = ["mostactive", "gainers", "losers","iexvolume", "iexpercent"]
+    private let sectionsNames: [String] = ["Most Active", "Gainers", "Losers","Iex volume", "Iex percent"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -192,28 +190,3 @@ extension ViewController: UIPickerViewDelegate {
         }
     }
 }
-// MARK: Cache
-// Loading and caching image from url
-// and setting it to imageView.image
-extension UIImageView {
-  func cacheImage(symbol: String){
-    // 1. Making URL with symbol that we got
-    guard let url = URL(string: "https://storage.googleapis.com/iex/api/logos/\(symbol).png") else { return }
-    // 2. Setting imageView.image to nil because we want to load new image into it
-    image = nil
-    // 3. Looking for new image in imageCache dictionary
-    // 3.1 If it exists than loading it as imageView.image
-    if let imageFromCache = imageCache.object(forKey: url.absoluteString as NSString) as? UIImage {
-        self.image = imageFromCache
-        print("Got it from cash")
-        return
-    // 3.2 If not, loading image from our URL
-    } else {
-    // and caching it inside of this method
-        NetworkManager.shared().requestLogo(url: url) { image in
-    // and setting in main queue imageView.image equal to image we got
-            DispatchQueue.main.async {
-                self.image = image
-            }
-        }
-}}}

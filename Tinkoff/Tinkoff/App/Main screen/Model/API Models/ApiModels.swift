@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Акция
 struct Stock: Codable {
     let symbol: String
     let companyName: String
@@ -14,5 +15,10 @@ struct Stock: Codable {
     let change: Double
 }
 
+// Ссылка на URL картинки логотипа компании
+struct Logo: Codable {
+    let url: String?
+}
 
+// Список акций для предзагрузки
 typealias List = [Stock]
